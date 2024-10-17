@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Library library = new Library();
-        Reader reader = new Reader("Hasan");
-        Librarian librarian = new Librarian("Gökhan", "1234");
+        Library library = new Library(); //Yeni bir kütüphane nesnesi oluşturuluyor.
+        Reader reader = new Reader("Hasan"); //Yeni bir okuyucu nesnesi oluşturuluyor.
+        Librarian librarian = new Librarian("Gökhan", "1234"); //Yeni bir kütüphaneci nesnesi oluşturuluyor.
         Scanner scanner = new Scanner(System.in);
 
         // Okuyucu ekleme
@@ -69,7 +69,7 @@ public class Main {
             System.out.println("9.  Kitap İade Et");
             System.out.println("10. Okuyucunun Ödünç Aldığı Kitapları Göster");
             System.out.println("11. Kitap Satın Al");
-            System.out.println("12. Okuyucunun Alınan Kitap Sayısını Göster");
+            System.out.println("12. Okuyucunun Aldığı Kitap Sayısını Göster");
             System.out.println("13. Yeni Üye Oluştur");
             System.out.println("14. Kayıtlı Okuyucuları Göster");
             System.out.println("15. Kategoriye Göre Kitaları Göster");
@@ -80,12 +80,12 @@ public class Main {
 
             switch (choice) {
                 case 1: // Kitap Ekleme
-                    System.out.print("Kitap ID: ");
+                    System.out.print("Kitap ID: "); // Kullanıcıdan kitap ID'sini alır.
                     int id = scanner.nextInt();
-                    scanner.nextLine(); // Boşluğu yakalamak için
-                    System.out.print("Yazar: ");
+                    scanner.nextLine(); // Boşluğu yakalamak için, nextInt() çağrısından sonra satır sonunu temizler.
+                    System.out.print("Yazar: "); // Kullanıcıdan yazar adını alır.
                     String author = scanner.nextLine();
-                    System.out.print("Başlık: ");
+                    System.out.print("Başlık: "); // Kullanıcıdan kitabın başlığını alır.
                     String title = scanner.nextLine();
                     System.out.print("Fiyat: ");
                     double price = scanner.nextDouble();
@@ -96,10 +96,10 @@ public class Main {
                     int type = scanner.nextInt();
                     scanner.nextLine(); // Boşluğu yakalamak için
 
-                    Book newBook;
+                    Book newBook; // Yeni bir Book nesnesi için bir referans tanımlanıyor.
                     String category = "belirtilen_kategori"; // Kategoriyi burada belirtin, kullanıcıdan alabilirsiniz
 
-                    switch (type) {
+                    switch (type) { //kitap türüne göre uygun nesneyi oluşturmak için switch yapısı kullanılır
                         case 1:
                             newBook = new Book(id, author, title, price, "mevcut", edition, category);
                             break;
@@ -121,154 +121,168 @@ public class Main {
 
 
                 case 2: // Kitapları Listeleme
-                    library.showBooks();
+                    library.showBooks(); //// Kütüphanedeki tüm kitapları listele
                     break;
 
                 case 3: // Kitap Arama (ID ile)
-                    System.out.print("Aranacak Kitap ID'si: ");
-                    int searchId = scanner.nextInt();
+                    System.out.print("Aranacak Kitap ID'si: "); // Kullanıcıdan aramak istediği kitap ID'sini iste
+                    int searchId = scanner.nextInt(); // Kullanıcının girdiği ID'yi al
                     scanner.nextLine(); // Boşluğu yakalamak için
-                    librarian.searchBook(library, searchId);
+                    librarian.searchBook(library, searchId); // Kütüphanede arama işlemini yap
                     break;
 
                 case 4: // Kitap Arama (İsim ile)
-                    System.out.print("Aranacak Kitap İsmi: ");
-                    String searchName = scanner.nextLine();
-                    librarian.searchBookByName(library, searchName);
+                    System.out.print("Aranacak Kitap İsmi: "); // Kullanıcıdan aramak istediği kitap ismini iste
+                    String searchName = scanner.nextLine(); // Kullanıcının girdiği ismi al
+                    librarian.searchBookByName(library, searchName); // Kütüphanede arama işlemini yap
                     break;
 
                 case 5: // Yazarın Tüm Kitaplarını Listele
-                    System.out.print("Yazarın İsmi: ");
-                    String searchAuthor = scanner.nextLine();
-                    library.showBooksByAuthor(searchAuthor);
+                    System.out.print("Yazarın İsmi: "); // Kullanıcıdan yazarın ismini iste
+                    String searchAuthor = scanner.nextLine(); // Kullanıcının girdiği ismi al
+                    library.showBooksByAuthor(searchAuthor); // Yazarın kitaplarını kütüphanede listele
                     break;
 
                 case 6: // Kitap Güncelleme
-                    System.out.print("Güncellenecek Kitap ID'si: ");
-                    int updateId = scanner.nextInt();
+                    System.out.print("Güncellenecek Kitap ID'si: "); // Kullanıcıdan güncellemek istediği kitap ID'sini iste
+                    int updateId = scanner.nextInt(); // Kullanıcının girdiği ID'yi al
                     scanner.nextLine(); // Boşluğu yakalamak için
-                    Book bookToUpdate = library.getBookById(updateId);
-                    if (bookToUpdate != null) {
-                        System.out.print("Yeni Yazar: ");
-                        String newAuthor = scanner.nextLine();
-                        System.out.print("Yeni Başlık: ");
-                        String newTitle = scanner.nextLine();
-                        System.out.print("Yeni Fiyat: ");
-                        double newPrice = scanner.nextDouble();
+
+                    Book bookToUpdate = library.getBookById(updateId); // Kütüphaneden belirtilen ID ile kitabı al
+                    if (bookToUpdate != null) { // Eğer kitap bulunmuşsa
+                        System.out.print("Yeni Yazar: "); // Kullanıcıdan yeni yazar ismini iste
+                        String newAuthor = scanner.nextLine(); // Yeni yazar ismini al
+                        System.out.print("Yeni Başlık: "); // Kullanıcıdan yeni başlık iste
+                        String newTitle = scanner.nextLine(); // Yeni başlığı al
+                        System.out.print("Yeni Fiyat: "); // Kullanıcıdan yeni fiyat iste
+                        double newPrice = scanner.nextDouble(); // Yeni fiyatı al
                         scanner.nextLine(); // Boşluğu yakalamak için
-                        System.out.print("Yeni Baskı: ");
-                        String newEdition = scanner.nextLine();
-                        library.updateBook(updateId, newAuthor, newTitle, newPrice, newEdition);
+                        System.out.print("Yeni Baskı: "); // Kullanıcıdan yeni baskı bilgisi iste
+                        String newEdition = scanner.nextLine(); // Yeni baskıyı al
+
+                        library.updateBook(updateId, newAuthor, newTitle, newPrice, newEdition); // Kitap bilgilerini güncelle
                     } else {
-                        System.out.println("Kitap bulunamadı.");
+                        System.out.println("Kitap bulunamadı."); // Eğer kitap bulunamazsa mesaj ver
                     }
                     break;
 
                 case 7: // Kitap Silme
-                    System.out.print("Silinecek Kitap ID'si: ");
-                    int removeId = scanner.nextInt();
+                    System.out.print("Silinecek Kitap ID'si: "); // Kullanıcıdan silmek istediği kitap ID'sini iste
+                    int removeId = scanner.nextInt(); // Kullanıcının girdiği ID'yi al
                     scanner.nextLine(); // Boşluğu yakalamak için
-                    library.removeBook(removeId);
+                    library.removeBook(removeId); // Kütüphaneden belirtilen ID ile kitabı sil
                     break;
 
                 case 8: // Kitap Ödünç Alma
-                    System.out.print("Ödünç alınacak kitap ID'si: ");
-                    int borrowId = scanner.nextInt();
+                    System.out.print("Ödünç alınacak kitap ID'si: "); // Kullanıcıdan ödünç alınacak kitabın ID'sini iste
+                    int borrowId = scanner.nextInt(); // Kullanıcının girdiği ID'yi al
                     scanner.nextLine(); // Boşluğu yakalamak için
-                    Book bookToBorrow = library.getBookById(borrowId);
-                    if (bookToBorrow != null) {
-                        if (bookToBorrow.getStatus().equals("mevcut")) {
-                            librarian.issueBook(library, borrowId, reader);
-                            bookToBorrow.setStatus("ödünçte"); // Durumu güncelle
+                    Book bookToBorrow = library.getBookById(borrowId); // Kütüphaneden belirtilen ID ile kitabı al
+                    if (bookToBorrow != null) { // Eğer kitap bulunmuşsa
+                        if (bookToBorrow.getStatus().equals("mevcut")) { // Kitap mevcutsa
+                            librarian.issueBook(library, borrowId, reader); // Kitabı ödünç ver
+                            bookToBorrow.setStatus("ödünçte"); // Kitabın durumunu "ödünçte" olarak güncelle
                         } else {
-                            System.out.println("Kitap kütüphanede bulunmamaktadır.");
+                            System.out.println("Kitap kütüphanede bulunmamaktadır."); // Kitap mevcut değilse hata mesajı ver
                         }
                     } else {
-                        System.out.println("Kitap bulunamadı.");
+                        System.out.println("Kitap bulunamadı."); // Eğer kitap bulunamazsa hata mesajı ver
                     }
                     break;
+
 
                 // Kitap iade işlemi sonrası kitap durumunu güncelle
-                case 9: // Kitap İade Etme
-                    System.out.print("İade edilecek kitap ID'si: ");
-                    int returnId = scanner.nextInt();
-                    scanner.nextLine(); // Boşluğu yakalamak için
-                    Book bookToReturn = library.getBookById(returnId);
-                    if (bookToReturn != null) {
-                        librarian.returnBook(library, returnId, reader);
-                        bookToReturn.setStatus("mevcut"); // Durumu güncelle
+                case 9:
+                    System.out.print("İade edilecek kitap ID'si: "); // Kullanıcıdan iade edilecek kitabın ID'sini al
+                    int returnId = scanner.nextInt(); // Kullanıcının girdiği ID'yi al
+                    scanner.nextLine(); // Boşluğu yakalamak için (nextInt() sonrası)
+                    Book bookToReturn = library.getBookById(returnId); // ID'ye göre kitap bul
+
+                    if (bookToReturn != null) { // Eğer kitap bulunmuşsa
+                        librarian.returnBook(library, returnId, reader); // Kitabı iade et
+                        bookToReturn.setStatus("mevcut"); // Kitap durumunu "mevcut" olarak güncelle
                     } else {
-                        System.out.println("Kitap bulunamadı.");
+                        System.out.println("Kitap bulunamadı."); // Kitap bulunamazsa hata mesajı ver
                     }
-                    break;
+                    break; // Durumu kontrol ettikten sonra case'den çık
 
                 case 10: // Okuyucunun Ödünç Aldığı Kitapları Göster
-                    System.out.print("Ödünç alınan kitapları görmek istediğiniz okuyucunun adını girin: ");
-                    String readerNameToShow = scanner.nextLine();
-                    Reader readerToShow = library.getReaderByName(readerNameToShow);
-                    if (readerToShow != null) {
-                        System.out.println(readerToShow.getName() + " tarafından ödünç alınan kitaplar:");
-                        for (Book borrowedBook : readerToShow.getBorrowedBooks()) {
-                            borrowedBook.display(); // Okuyucunun ödünç aldığı kitapları göster
+                    System.out.print("Ödünç alınan kitapları görmek istediğiniz okuyucunun adını girin: "); // Kullanıcıdan okuyucu ismini al
+                    String readerNameToShow = scanner.nextLine(); // Okuyucu ismini kaydet
+                    Reader readerToShow = library.getReaderByName(readerNameToShow); // Okuyucu ismine göre okuyucu bul
+
+                    if (readerToShow != null) { // Eğer okuyucu bulunmuşsa
+                        System.out.println(readerToShow.getName() + " tarafından ödünç alınan kitaplar:"); // Okuyucu ismini yazdır
+                        for (Book borrowedBook : readerToShow.getBorrowedBooks()) { // Okuyucunun ödünç aldığı kitaplar için döngü
+                            borrowedBook.display(); // Her bir kitabı göster
                         }
                     } else {
-                        System.out.println("Okuyucu bulunamadı.");
+                        System.out.println("Okuyucu bulunamadı."); // Okuyucu bulunamazsa hata mesajı ver
                     }
                     break;
+
+
                 case 11: // Kitap Satın Alma
-                    System.out.print("Satın alınacak kitap ID'si: ");
-                    int purchaseId = scanner.nextInt();
-                    scanner.nextLine(); // Boşluğu yakalamak için
-                    Book bookToPurchase = library.getBookById(purchaseId);
-                    if (bookToPurchase != null) {
-                        reader.purchaseBook(bookToPurchase); // Reader üzerinden satın alma
-                        bookToPurchase.setStatus("satıldı"); // Durumu güncelle
-                        System.out.println("Kitap başarıyla satın alındı.");
+                    System.out.print("Satın alınacak kitap ID'si: "); // Kullanıcıdan satın alınacak kitabın ID'sini al
+                    int purchaseId = scanner.nextInt(); // Kullanıcının girdiği ID'yi al
+                    scanner.nextLine(); // Boşluğu yakalamak için (nextInt() sonrası)
+                    Book bookToPurchase = library.getBookById(purchaseId); // ID'ye göre kitap bul
+
+                    if (bookToPurchase != null) { // Eğer kitap bulunmuşsa
+                        reader.purchaseBook(bookToPurchase); // Okuyucu üzerinden kitabı satın alma işlemi
+                        bookToPurchase.setStatus("satıldı"); // Kitap durumunu "satıldı" olarak güncelle
+                        System.out.println("Kitap başarıyla satın alındı."); // Başarılı satın alma mesajı
 
                         // Fatura oluşturma mesajı
-                        System.out.println("Faturanızı oluşturduk: " + bookToPurchase.getTitle() + " - Fiyat: " + bookToPurchase.getPrice() + " TL");
+                        System.out.println("Faturanızı oluşturduk: " + bookToPurchase.getTitle() + " - Fiyat: " + bookToPurchase.getPrice() + " TL"); // Kitap ismi ve fiyatı ile fatura bilgisi
                     } else {
-                        System.out.println("Kitap bulunamadı.");
+                        System.out.println("Kitap bulunamadı."); // Kitap bulunamazsa hata mesajı ver
                     }
                     break;
 
 
-                case 12: // Okuyucunun alınan kitap sayısını göster
-                    System.out.println(reader.getName() + " tarafından alınan kitap sayısı: " + reader.getNoBooksIssued());
+
+                case 12: // Okuyucunun aldığı kitap sayısını göster
+                    System.out.println(reader.getName() + " tarafından alınan kitap sayısı: " + reader.getNoBooksIssued()); // Okuyucunun adı ve ödünç aldığı kitap sayısını göster
                     break;
 
+
                 case 13: // Yeni Üye Oluştur
-                    System.out.print("Üye ID: ");
-                    int memberId = scanner.nextInt();
-                    scanner.nextLine(); // Boşluğu yakalamak için
-                    System.out.print("Üye Adı: ");
-                    String name = scanner.nextLine();
-                    System.out.print("Üye Adresi: ");
-                    String address = scanner.nextLine();
-                    System.out.print("Üye Telefon Numarası: ");
-                    String phoneNo = scanner.nextLine();
-                    System.out.print("Üye Türü: ");
-                    String memberType = scanner.nextLine();
+                    System.out.print("Üye ID: "); // Kullanıcıdan üye ID'sini al
+                    int memberId = scanner.nextInt(); // Kullanıcının girdiği ID'yi al
+                    scanner.nextLine(); // Boşluğu yakalamak için (nextInt() sonrası)
+
+                    System.out.print("Üye Adı: "); // Kullanıcıdan üye adını al
+                    String name = scanner.nextLine(); // Kullanıcının girdiği ismi al
+
+                    System.out.print("Üye Adresi: "); // Kullanıcıdan üye adresini al
+                    String address = scanner.nextLine(); // Kullanıcının girdiği adresi al
+
+                    System.out.print("Üye Telefon Numarası: "); // Kullanıcıdan üye telefon numarasını al
+                    String phoneNo = scanner.nextLine(); // Kullanıcının girdiği telefon numarasını al
+
+                    System.out.print("Üye Türü: "); // Kullanıcıdan üye türünü al
+                    String memberType = scanner.nextLine(); // Kullanıcının girdiği üye türünü al
 
                     // Yeni üye oluşturma
-                    MemberRecord newMember = new MemberRecord(memberId, name, address, phoneNo, memberType);
+                    MemberRecord newMember = new MemberRecord(memberId, name, address, phoneNo, memberType); // Yeni üye kaydını oluştur
                     library.addReader(new Reader(name)); // Okuyucu olarak ekliyoruz
-                    System.out.println("Yeni üye başarıyla oluşturuldu: " + newMember.getName());
+                    System.out.println("Yeni üye başarıyla oluşturuldu: " + newMember.getName()); // Başarılı üye oluşturma mesajı
                     break;
 
                 case 14: // Kayıtlı Üyeleri Göster
-                    System.out.println("Kayıtlı Üyeler:");
-                    for (Reader r : library.getReaders()) {
-                        System.out.println("Üye Adı: " + r.getName());
+                    System.out.println("Kayıtlı Üyeler:"); // Kayıtlı üyelerin listeleneceğini belirt
+                    for (Reader r : library.getReaders()) { // Kütüphanedeki tüm okuyucuları döngü ile gez
+                        System.out.println("Üye Adı: " + r.getName()); // Her üyenin adını yazdır
                     }
                     break;
 
-                case 15: // Kategoriye göre kitapları listele
-                    System.out.print("Görüntülemek istediğiniz kategori: ");
-                    String selectedCategory = scanner.nextLine(); // Değişken adını değiştirdik
-                    library.showBooksByCategory(selectedCategory);
-                    break;
 
+                case 15: // Kategoriye göre kitapları listele
+                    System.out.print("Görüntülemek istediğiniz kategori: "); // Kullanıcıdan görüntülemek istediği kitap kategorisini al
+                    String selectedCategory = scanner.nextLine(); // Kullanıcının girdiği kategoriyi al
+                    library.showBooksByCategory(selectedCategory); // Belirtilen kategoriye göre kitapları listele
+                    break;
 
                 case 0: // Çıkış
                     System.out.println("Sistemden çıkılıyor...");

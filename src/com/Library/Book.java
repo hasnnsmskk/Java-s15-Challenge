@@ -19,11 +19,13 @@ public class Book implements LibraryItem {
         this.price = price;
         this.status = status; // Kitap durumu
         this.edition = edition; // Kitap baskısı
-        this.owner = "";
+        this.owner = ""; //Kitap ilk oluşturulduğunda sahibi (ödünç alan) olmadığı için owner değişkeni boş olarak başlatılır.
         this.category = category;  // Kategori ekleniyor
     }
 
     // Getter ve Setter metodları
+    //Getter ve Setter metodları, sınıf içindeki özel (private) değişkenlere dışarıdan erişimi ve onları değiştirmeyi sağlar.
+    //Bu getter metodları, kitabın belirli özelliklerini almak için kullanılır.
     public int getId() {
         return id;
     }
@@ -56,6 +58,7 @@ public class Book implements LibraryItem {
         return category;
     }
 
+    //Bu setter metodları, kitabın özelliklerini dışarıdan değiştirmek için kullanılır.
     public void setAuthor(String author) {
         this.author = author;
     }
@@ -83,6 +86,7 @@ public class Book implements LibraryItem {
         this.category = category;
     }
 
+    //LibraryItem arayüzünden gelen bir zorunluluktur ve kitabın bilgilerini ekrana yazdırır.
     // Kitap bilgilerini ekrana basar.
     @Override
     public void display() {

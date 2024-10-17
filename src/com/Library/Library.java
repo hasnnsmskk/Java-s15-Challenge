@@ -16,20 +16,22 @@ public class Library {
 
     // Yeni bir kitap ekler.
     public void newBook(Book book) {
-        books.put(book.getId(), book);
-        authors.add(book.getAuthor());
+        books.put(book.getId(), book); // Kitap ID'si ve kitap nesnesini HashMap'e ekler.
+        authors.add(book.getAuthor());  // Kitabın yazarını yazarlar listesine ekler
         System.out.println(book.getTitle() + " kütüphaneye eklendi.");
     }
 
     // Kitap ID'sine göre kitap arar.
     public Book getBookById(int id) {
-        return books.get(id);
+        return books.get(id); //// Belirtilen ID'ye sahip kitabı döner.
     }
 
     // Kitap adına göre kitap arar.
     public Book getBookByName(String name) {
+
+        // Tüm kitapları dolaşarak ismi eşleşen kitabı bulur.
         for (Book book : books.values()) {
-            if (book.getTitle().equalsIgnoreCase(name)) {
+            if (book.getTitle().equalsIgnoreCase(name)) { // İsim karşılaştırması büyük-küçük harf duyarlılığı olmadan yapılır.
                 return book;
             }
         }
@@ -38,11 +40,12 @@ public class Library {
 
     // Yazar adına göre kitapları listeler.
     public void showBooksByAuthor(String author) {
-        boolean found = false;
+        boolean found = false; // Kitap bulunup bulunmadığını kontrol etmek için
+        // Tüm kitapları dolaşarak, yazar ismine göre eşleşen kitapları listeler.
         for (Book book : books.values()) {
-            if (book.getAuthor().equalsIgnoreCase(author)) {
-                book.display();
-                found = true;
+            if (book.getAuthor().equalsIgnoreCase(author)) { // Yazar ismi eşleşirse:
+                book.display(); // Kitap bilgilerini ekrana basar.
+                found = true;   // Kitap bulunduğunu belirtir.
             }
         }
         if (!found) {
@@ -54,9 +57,10 @@ public class Library {
     //Kategoriye Göre Kitap Listeleme
     public void showBooksByCategory(String category) {
         boolean found = false;
-        for (Book book : books.values()) {  // books.values() ile kitapların listesini alıyoruz.
+        for (Book book : books.values()) {
+            // Tüm kitapları dolaşarak, belirtilen kategoriye ait kitapları bulur..
             if (book.getCategory().equalsIgnoreCase(category)) {
-                book.display();
+                book.display(); //// Kitap bilgilerini gösterir.
                 found = true;
             }
         }
@@ -69,8 +73,9 @@ public class Library {
 
     // Kitabı günceller.
     public void updateBook(int id, String newAuthor, String newTitle, double newPrice, String newEdition) {
-        Book book = books.get(id);
+        Book book = books.get(id); // Kitap ID'si ile kitabı bulur.
         if (book != null) {
+            // Kitabın bilgilerini yeni verilen değerlerle günceller.
             book.setAuthor(newAuthor);
             book.setTitle(newTitle);
             book.setPrice(newPrice);
@@ -83,7 +88,7 @@ public class Library {
 
     // Kitabı siler.
     public void removeBook(int id) {
-        Book removedBook = books.remove(id);
+        Book removedBook = books.remove(id); // ID ile kitabı HashMap'ten çıkarır.
         if (removedBook != null) {
             System.out.println("Kitap silindi: " + removedBook.getTitle());
         } else {
@@ -93,15 +98,15 @@ public class Library {
 
     // Kitabı ödünç verir.
     public void lendBook(int bookId, Reader reader) {
-        Book book = books.get(bookId);
+        Book book = books.get(bookId); // Kitap ID ile bulunur.
         if (book != null) {
             // Kitap daha önce ödünç alınmamışsa
             if (book.getOwner().isEmpty()) {
-                reader.borrowBook(book);
+                reader.borrowBook(book); // Okuyucuya kitabı ödünç verir.
 
 
             } else {
-                // Kitap zaten ödünç alınmışsa
+                // Kitap zaten ödünç alınmışsa mesaj verir.
                 System.out.println(book.getTitle() + " şu anda " + book.getOwner() + " tarafından ödünç alınmıştır.");
                 System.out.println("İsterseniz başka bir kitap ödünç alabilirsiniz.");
             }
@@ -114,9 +119,10 @@ public class Library {
 
     // Kitabı geri alır.
     public void returnBook(int bookId, Reader reader) {
-        Book book = books.get(bookId);
+        Book book = books.get(bookId); // Kitap ID ile bulunur.
+        // Kitap okuyucunun ödünç aldığı kitapsa, geri alır.
         if (book != null && book.getOwner().equals(reader.getName())) {
-            reader.returnBook(book);
+            reader.returnBook(book);  // Okuyucu kitabı geri verir.
         } else {
             System.out.println("Kitap ya bulunamadı ya da bu kitap senin ödünç aldığın kitaplar arasında değil.");
         }
@@ -135,19 +141,21 @@ public class Library {
     }
 
     public List<Reader> getReaders() {
-        return readers; // readers, kütüphanedeki okuyucuları tutan bir liste olmalıdır.
+        return readers; // readers, kütüphanedeki okuyucuları tutan bir listedir.
     }
 
     // Okuyucu ekler.
     public void addReader(Reader reader) {
-        readers.add(reader);
+        readers.add(reader); // Okuyucuyu listeye ekler.
         System.out.println("Okuyucu eklendi: " + reader.getName());
     }
 
+
     // Okuyucu bulur.
     public Reader getReaderByName(String name) {
+        // Tüm okuyucuları dolaşarak ismi eşleşen okuyucuyu döner.
         for (Reader reader : readers) {
-            if (reader.getName().equalsIgnoreCase(name)) {
+            if (reader.getName().equalsIgnoreCase(name)) { //iki string'in aynı olup olmadığını kontrol ederken büyük/küçük harf farkını göz ardı eder.
                 return reader;
             }
         }

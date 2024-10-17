@@ -1,7 +1,5 @@
 package com.Library;
 
-import com.Library.Book;
-import com.Library.Person;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +8,11 @@ import java.util.List;
 public class Author extends Person {
     private List<Book> books; // Yazarın kitaplarının listesi
 
+    //constructor metotu
     public Author(String name) {
         super(name);
-        books = new ArrayList<>();
+        books = new ArrayList<>(); //Yazarın kitapları için boş bir ArrayList oluşturulur.
+                                    // Bu listeye daha sonra kitaplar eklenebilir.
     }
 
 
